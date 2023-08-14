@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Device Details</h1>
+
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ device.name }}</span>
+    <p>Release Year: {{ device.release_year }}</p>
+    <p>Category: {{ device.category }}</p>
+    <p>Latest Model: {{ device.latest_model }}</p>
+  </div>
+</div>
+
+{% endblock %}
