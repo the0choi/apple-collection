@@ -8,7 +8,11 @@
     <span class="card-title">{{ device.name }}</span>
     <p>Release Year: {{ device.release_year }}</p>
     <p>Category: {{ device.category }}</p>
-    <p>Latest Model: {{ device.latest_model }}</p>
+    <p>Colours: {{ device.colours }}</p>
+  </div>
+  <div class="card-action">
+    <a href="{% url 'devices_update' device.id %}">Edit</a>
+    <a href="{% url 'devices_delete' device.id %}">Delete</a>
   </div>
 </div>
 

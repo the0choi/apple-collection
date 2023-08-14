@@ -6,4 +6,7 @@ urlpatterns = [
   path('about/', views.about, name='about'),
   path('devices/', views.devices_index, name='index'),
   path('devices/<int:device_id>/', views.devices_detail, name='detail'),
+  path('devices/create/', views.DeviceCreate.as_view(), name='devices_create'),
+  path('devices/<int:pk>/update/', views.DeviceUpdate.as_view(), name='devices_update'),
+  path('devices/<int:pk>/delete/', views.DeviceDelete.as_view(), name='devices_delete'),
 ]
