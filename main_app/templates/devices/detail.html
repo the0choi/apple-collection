@@ -3,17 +3,46 @@
 
 <h1>Device Details</h1>
 
-<div class="card">
-  <div class="card-content">
-    <span class="card-title">{{ device.name }}</span>
-    <p>Release Year: {{ device.release_year }}</p>
-    <p>Category: {{ device.category }}</p>
-    <p>Colours: {{ device.colours }}</p>
+<div class="row">
+  <div class="col s6">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{ device.name }}</span>
+        <p>Release Year: {{ device.release_year }}</p>
+        <p>Type: {{ device.type }}</p>
+        <p>Operating System: {{ device.operating_system }}</p>
+      </div>
+      <div class="card-action">
+        <a href="{% url 'devices_update' device.id %}">Edit</a>
+        <a href="{% url 'devices_delete' device.id %}">Delete</a>
+      </div>
+    </div>
   </div>
-  <div class="card-action">
-    <a href="{% url 'devices_update' device.id %}">Edit</a>
-    <a href="{% url 'devices_delete' device.id %}">Delete</a>
+  <div class="col s6">
+    <form action="{% url 'add_version' device.id %}" method="POST">
+      {% csrf_token %}
+      {{ version_form.as_p }}
+      <input type="submit" class="btn" value="Add Version">
+    </form>
+    <br>
+
+    <table class="striped">
+      <thead>
+        <tr><th>Model</th><th>Release Year</th></tr>
+      </thead>
+      <tbody>
+        {% for version in device.version_set.all %}
+          <tr>
+            <td>{{version.name}}</td>
+            <td>{{version.release_year}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 </div>
+
+<script>
+</script>
 
 {% endblock %}

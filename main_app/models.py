@@ -4,8 +4,8 @@ from django.urls import reverse
 class Device(models.Model):
     name = models.CharField(max_length=100)
     release_year = models.IntegerField()
-    category = models.CharField(max_length=100)
-    colours = models.CharField(max_length=100)
+    type = models.CharField(max_length=100)
+    operating_system = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
@@ -13,3 +13,14 @@ class Device(models.Model):
     def get_absolute_url(self):
         return reverse('detail', kwargs={'device_id': self.id})
 
+class Version(models.Model):
+    name = models.CharField(max_length=100)
+    release_year = models.IntegerField()
+
+    device = models.ForeignKey(Device, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.name} on {self.release_year}"
+    
+    class Meta:
+        ordering = ['-release_year']
