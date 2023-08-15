@@ -5,14 +5,14 @@
 
 {% for device in devices %}
   <div class="card">
-    <a href="{% url 'detail' device.id %}">
         <div class="card-content">
-          <span class="card-title">{{ device.name }}</span>
+          <a href="{% url 'detail' device.id %}">
+            <span class="card-title">{{ device.name }}</span>
+          </a>
           <p>Release Year: {{ device.release_year }}</p>
           <p>Type: {{ device.type }}</p>
           <p>Operating System: {{ device.operating_system }}</p>
         </div>
-      </a>   
   </div>
 {% endfor %}
 

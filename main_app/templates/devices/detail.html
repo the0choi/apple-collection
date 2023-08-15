@@ -18,6 +18,7 @@
       </div>
     </div>
   </div>
+
   <div class="col s6">
     <form action="{% url 'add_version' device.id %}" method="POST">
       {% csrf_token %}
@@ -35,6 +36,12 @@
           <tr>
             <td>{{version.name}}</td>
             <td>{{version.release_year}}</td>
+            <td>
+              <form action="{% url 'remove_version' device.id version.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn">Remove</button>
+              </form>
+            </td>
           </tr>
         {% endfor %}
       </tbody>
@@ -42,7 +49,52 @@
   </div>
 </div>
 
-<script>
-</script>
+<hr>
+  <div class="row">
+    <div class="col s6">
+      <h3>{{ device.name }} Accessories</h3>
+      {% if device.accessories.count %}
+        {% for accessory in device.accessories.all %}
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title">
+                <span style="color: teal"> {{ accessory.name }}</span>
+              </span>
+            </div>
+            <div class="card-action">
+              <form action="{% url 'remove_accessory' device.id accessory.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn">Remove</button>
+              </form>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <h5>No Accessories</h5>
+      {% endif %}
+    </div>
+
+    <div class="col s6">
+      <h3>Available Accessories</h3>
+      {% if accessories.count %}
+        {% for accessory in accessories.all %}
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title">
+                <span style="color: teal"> {{ accessory.name }}</span>
+              </span>
+            </div>
+            <div class="card-action">
+              <form action="{% url 'assoc_accessory' device.id accessory.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn">Add</button>
+              </form>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <h5>{{device.name}} Already Has All Accessories Available</h5>
+      {% endif %}
+  </div>
 
 {% endblock %}
